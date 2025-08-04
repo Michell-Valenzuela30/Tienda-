@@ -1,14 +1,13 @@
 public class Producto implements Comparable<Producto>{
     private String nombreProducto;
     private double precio;
-    private double montoTotal;
 
     public String getnombreProducto() {
         return nombreProducto;
     }
 
-    public void setnombreProducto(String producto) {
-        this.nombreProducto = nombreProducto;
+    public void setnombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto; // ✅ Corregido
     }
 
     public double getPrecio() {
@@ -17,11 +16,6 @@ public class Producto implements Comparable<Producto>{
 
     public void setPrecio(double precio) {
         this.precio = precio;
-        this.montoTotal += precio;
-    }
-
-    public double getMontoTotal() {
-        return montoTotal;
     }
 
     @Override
@@ -31,7 +25,6 @@ public class Producto implements Comparable<Producto>{
 
     @Override
     public String toString(){
-        return this.getnombreProducto() + " = " + this.getPrecio();
+        return this.getnombreProducto() + " = $" + this.getPrecio();
     }
 }
-

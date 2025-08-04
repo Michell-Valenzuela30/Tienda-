@@ -6,68 +6,80 @@ public class Main {
     public static void main(String[] args) {
 
         Factura nuevoCliente = new Factura();
-        /*Producto nuevoProducto = new Producto();*/
         Scanner scanner = new Scanner(System.in);
 
         nuevoCliente.mensajeInicio();
 
-        System.out.print("Ingrese su saldo en tarjeta: ");
+        System.out.print("Ingrese su saldo en tarjeta: $");
         double respuesta = scanner.nextDouble();
         scanner.nextLine();
         nuevoCliente.setSaldo(respuesta);
 
-        //listas para ordenar y mostrar
         ArrayList<Producto> listaCompra = new ArrayList<>();
-
         char bandera = 'c';
-        double localMontoFactura;
 
         do{
             Producto nuevoProducto = new Producto();
             System.out.print("Ingrese el producto que desea llevar: ");
             String nombre = scanner.nextLine();
 
-
-            System.out.print("Ingrese el costo del producto: ");
+            System.out.print("Ingrese el costo del producto: $");
             double precio = scanner.nextDouble();
-            scanner.nextLine();//limpia el buffer (toma el salto de linea)
+            scanner.nextLine();
 
-
-            //AÑADE A LA CLASE
-            nuevoProducto.setnombreProducto(nombre);
-            nuevoProducto.setPrecio(precio);
-
-            //asignar
-            listaCompra.add(nuevoProducto);
-            localMontoFactura = nuevoProducto.getMontoTotal();
-
-            if (nuevoProducto.getMontoTotal()>nuevoCliente.getSaldo()) {
-
+            // Verificar si el nuevo producto excede el saldo disponible
+            double nuevoTotal = nuevoCliente.getMontoTotal() + precio;
+            
+            if (nuevoTotal > nuevoCliente.getSaldo()) {
                 System.out.println("========================================");
                 System.out.println("****  SALDO INSUFICIENTE  ****");
+                System.out.printf("Producto: %s - Precio: $%.2f\n", nombre, precio);
+                System.out.printf("Total actual: $%.2f\n", nuevoCliente.getMontoTotal());
+                System.out.printf("Saldo disponible: $%.2f\n", nuevoCliente.getSaldo());
+                System.out.println("No se puede agregar este producto.");
+                System.out.println("========================================");
+                
+                // Mostrar factura actual si hay productos
+                if (!listaCompra.isEmpty()) {
+                    nuevoCliente.mostrarFactura();
+                    Collections.sort(listaCompra);
+                    nuevoCliente.listar(listaCompra);
+                }
+                
+                System.out.print("Presiona (s) para salir, (c) para continuar: ");
+                bandera = scanner.nextLine().charAt(0);
+                continue;
+            }
+
+            // Agregar producto a la lista y actualizar total
+            nuevoProducto.setnombreProducto(nombre);
+            nuevoProducto.setPrecio(precio);
+            listaCompra.add(nuevoProducto);
+            nuevoCliente.agregarAlTotal(precio);
+
+            // Verificar si se consumió todo el saldo
+            if (nuevoCliente.getMontoTotal() == nuevoCliente.getSaldo()) {
+                System.out.println("****  CONSUMIÓ TODO EL SALDO DISPONIBLE  ****");
                 nuevoCliente.mostrarFactura();
                 Collections.sort(listaCompra);
                 nuevoCliente.listar(listaCompra);
-
-                continue;
-
-
-            } else if (nuevoProducto.getMontoTotal()==nuevoCliente.getSaldo()) {
-
-                System.out.println("****  CONSUMIÓ TODO EL SALDO DISPONIBLE  ****");
-                nuevoCliente.mostrarFactura(); //membrete
-                Collections.sort(listaCompra); //ordena
-                nuevoCliente.listar(listaCompra); //presenta los productos de la lista
-                continue;
+                break; // Salir del bucle
             }
-            System.out.print("Presiona (s) para salir, (c) para continuar: ");
-            bandera = scanner.nextLine().charAt(0); //para tomar solo 1 caracteres
 
+            System.out.print("Presiona (s) para salir, (c) para continuar: ");
+            bandera = scanner.nextLine().charAt(0);
             System.out.println("========================================");
 
-        }while (nuevoCliente.getSaldo()>localMontoFactura && (bandera == 'c' || bandera == 'C') );
+        } while (bandera == 'c' || bandera == 'C');
 
+        // Mostrar factura final si el usuario decide salir
+        if ((bandera == 's' || bandera == 'S') && !listaCompra.isEmpty()) {
+            nuevoCliente.mostrarFactura();
+            Collections.sort(listaCompra);
+            nuevoCliente.listar(listaCompra);
+        }
 
-
+        System.out.println("Gracias por su compra!");
+        scanner.close();
     }
 }
