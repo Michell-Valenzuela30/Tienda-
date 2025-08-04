@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>Main.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Main.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Scanner</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Collections</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">Main </span><span class="s2">{</span>
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+
+        <span class="s1">Factura nuevoCliente </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Factura</span><span class="s2">();</span>
+        <span class="s3">/*Producto nuevoProducto = new Producto();*/</span>
+        <span class="s1">Scanner scanner </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Scanner</span><span class="s2">(</span><span class="s1">System</span><span class="s2">.</span><span class="s1">in</span><span class="s2">);</span>
+
+        <span class="s1">nuevoCliente</span><span class="s2">.</span><span class="s1">mensajeInicio</span><span class="s2">();</span>
+
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Ingrese su saldo en tarjeta: &quot;</span><span class="s2">);</span>
+        <span class="s0">double </span><span class="s1">respuesta </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextDouble</span><span class="s2">();</span>
+        <span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+        <span class="s1">nuevoCliente</span><span class="s2">.</span><span class="s1">setSaldo</span><span class="s2">(</span><span class="s1">respuesta</span><span class="s2">);</span>
+
+        <span class="s3">//listas para ordenar y mostrar</span>
+        <span class="s1">ArrayList</span><span class="s2">&lt;</span><span class="s1">Producto</span><span class="s2">&gt; </span><span class="s1">listaCompra </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+
+        <span class="s0">char </span><span class="s1">bandera </span><span class="s2">= </span><span class="s4">'c'</span><span class="s2">;</span>
+        <span class="s0">double </span><span class="s1">localMontoFactura</span><span class="s2">;</span>
+
+        <span class="s0">do</span><span class="s2">{</span>
+            <span class="s1">Producto nuevoProducto </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Producto</span><span class="s2">();</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Ingrese el producto que desea llevar: &quot;</span><span class="s2">);</span>
+            <span class="s1">String nombre </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+
+
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Ingrese el costo del producto: &quot;</span><span class="s2">);</span>
+            <span class="s0">double </span><span class="s1">precio </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextDouble</span><span class="s2">();</span>
+            <span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span><span class="s3">//limpia el buffer (toma el salto de linea)</span>
+
+
+            <span class="s3">//AÑADE A LA CLASE</span>
+            <span class="s1">nuevoProducto</span><span class="s2">.</span><span class="s1">setnombreProducto</span><span class="s2">(</span><span class="s1">nombre</span><span class="s2">);</span>
+            <span class="s1">nuevoProducto</span><span class="s2">.</span><span class="s1">setPrecio</span><span class="s2">(</span><span class="s1">precio</span><span class="s2">);</span>
+
+            <span class="s3">//asignar</span>
+            <span class="s1">listaCompra</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">nuevoProducto</span><span class="s2">);</span>
+            <span class="s1">localMontoFactura </span><span class="s2">= </span><span class="s1">nuevoProducto</span><span class="s2">.</span><span class="s1">getMontoTotal</span><span class="s2">();</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">nuevoProducto</span><span class="s2">.</span><span class="s1">getMontoTotal</span><span class="s2">()&gt;</span><span class="s1">nuevoCliente</span><span class="s2">.</span><span class="s1">getSaldo</span><span class="s2">()) {</span>
+
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;========================================&quot;</span><span class="s2">);</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;****  SALDO INSUFICIENTE  ****&quot;</span><span class="s2">);</span>
+                <span class="s1">nuevoCliente</span><span class="s2">.</span><span class="s1">mostrarFactura</span><span class="s2">();</span>
+                <span class="s1">Collections</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">listaCompra</span><span class="s2">);</span>
+                <span class="s1">nuevoCliente</span><span class="s2">.</span><span class="s1">listar</span><span class="s2">(</span><span class="s1">listaCompra</span><span class="s2">);</span>
+
+                <span class="s0">continue</span><span class="s2">;</span>
+
+
+            <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">nuevoProducto</span><span class="s2">.</span><span class="s1">getMontoTotal</span><span class="s2">()==</span><span class="s1">nuevoCliente</span><span class="s2">.</span><span class="s1">getSaldo</span><span class="s2">()) {</span>
+
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;****  CONSUMIÓ TODO EL SALDO DISPONIBLE  ****&quot;</span><span class="s2">);</span>
+                <span class="s1">nuevoCliente</span><span class="s2">.</span><span class="s1">mostrarFactura</span><span class="s2">(); </span><span class="s3">//membrete</span>
+                <span class="s1">Collections</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">listaCompra</span><span class="s2">); </span><span class="s3">//ordena</span>
+                <span class="s1">nuevoCliente</span><span class="s2">.</span><span class="s1">listar</span><span class="s2">(</span><span class="s1">listaCompra</span><span class="s2">); </span><span class="s3">//presenta los productos de la lista</span>
+                <span class="s0">continue</span><span class="s2">;</span>
+            <span class="s2">}</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Presiona (s) para salir, (c) para continuar: &quot;</span><span class="s2">);</span>
+            <span class="s1">bandera </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">().</span><span class="s1">charAt</span><span class="s2">(</span><span class="s5">0</span><span class="s2">); </span><span class="s3">//para tomar solo 1 caracteres</span>
+
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;========================================&quot;</span><span class="s2">);</span>
+
+        <span class="s2">}</span><span class="s0">while </span><span class="s2">(</span><span class="s1">nuevoCliente</span><span class="s2">.</span><span class="s1">getSaldo</span><span class="s2">()&gt;</span><span class="s1">localMontoFactura </span><span class="s2">&amp;&amp; (</span><span class="s1">bandera </span><span class="s2">== </span><span class="s4">'c' </span><span class="s2">|| </span><span class="s1">bandera </span><span class="s2">== </span><span class="s4">'C'</span><span class="s2">) );</span>
+
+
+
+    <span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>
